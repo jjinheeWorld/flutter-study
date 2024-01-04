@@ -10,7 +10,6 @@ class HomeScreen extends StatelessWidget {
         bottom: false,
         child: Container(
           color: Colors.black,
-          height: MediaQuery.of(context).size.height,
           // Row, Column 모두 주축에서는 최대한 차지할 수 있을 만큼 모두 차지함.
           // 반대축은 최소한의 사이즈만큼만 기본적으로 차지함.
           child: Row(
@@ -28,6 +27,10 @@ class HomeScreen extends StatelessWidget {
             // center - 가운데
             // stretch - 최대한으로 늘린다.
             crossAxisAlignment: CrossAxisAlignment.start,
+            // MainAxisSize - 주축 크기
+            // max - 최대
+            // min - 최소
+            mainAxisSize: MainAxisSize.min,
             //
             children: [
               // Container는 child 안에 들어간 위젯에 따라서 형태가 바뀌기도 하지만 Container에 직접 사이즈를 정할 수 있음.
