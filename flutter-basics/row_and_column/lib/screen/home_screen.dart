@@ -12,7 +12,7 @@ class HomeScreen extends StatelessWidget {
           color: Colors.black,
           // Row, Column 모두 주축에서는 최대한 차지할 수 있을 만큼 모두 차지함.
           // 반대축은 최소한의 사이즈만큼만 기본적으로 차지함.
-          child: Row(
+          child: Column(
             // MainAxisAlignment - 주축 정렬
             // start - 시작
             // end - 끝
@@ -30,29 +30,39 @@ class HomeScreen extends StatelessWidget {
             // MainAxisSize - 주축 크기
             // max - 최대
             // min - 최소
-            mainAxisSize: MainAxisSize.min,
+            mainAxisSize: MainAxisSize.max,
             //
             children: [
               // Container는 child 안에 들어간 위젯에 따라서 형태가 바뀌기도 하지만 Container에 직접 사이즈를 정할 수 있음.
-              Container(
-                color: Colors.red,
-                width: 50.0,
-                height: 50.0,
+              // Expanded / Flexible
+              // -> ⭐Row나 Column 위젯에만 사용할 수 있음 ⭐
+              Flexible(
+                child: Container(
+                  color: Colors.red,
+                  width: 50.0,
+                  height: 50.0,
+                ),
               ),
-              Container(
-                color: Colors.orange,
-                width: 50.0,
-                height: 50.0,
+              Expanded(
+                child: Container(
+                  color: Colors.orange,
+                  width: 50.0,
+                  height: 50.0,
+                ),
               ),
-              Container(
-                color: Colors.yellow,
-                width: 50.0,
-                height: 50.0,
+              Expanded(
+                child: Container(
+                  color: Colors.yellow,
+                  width: 50.0,
+                  height: 50.0,
+                ),
               ),
-              Container(
-                color: Colors.green,
-                width: 50.0,
-                height: 50.0,
+              Expanded(
+                child: Container(
+                  color: Colors.green,
+                  width: 50.0,
+                  height: 50.0,
+                ),
               ),
             ],
           ),
