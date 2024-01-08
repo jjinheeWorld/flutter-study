@@ -14,7 +14,9 @@ class HomeScreen extends StatelessWidget {
   ///
   /// final result2 = WebViewController();
   /// result2.loadRequest();
-  WebViewController controller = WebViewController()..loadRequest(homeUrl);
+  WebViewController controller = WebViewController()
+    ..setJavaScriptMode(JavaScriptMode.unrestricted)
+    ..loadRequest(homeUrl);
 
   HomeScreen({super.key});
 
