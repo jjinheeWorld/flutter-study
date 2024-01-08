@@ -25,6 +25,16 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.orange,
         title: Text('jjinheeWorld'),
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              controller.loadRequest(homeUrl);
+            },
+            icon: Icon(
+              Icons.home
+            ),
+          ),
+        ],
       ),
       body: WebViewWidget(
         controller: controller,
