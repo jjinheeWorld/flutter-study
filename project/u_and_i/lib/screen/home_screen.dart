@@ -74,6 +74,9 @@ class _TopPart extends StatelessWidget {
                 context: context,
                 barrierDismissible: true,
                 builder: (BuildContext context) {
+                  /// 특정 사이즈를 설정했지만 위젯이 전체 영역을 차지하는 문제가 발생했다면
+                  /// 이는 플러터 프레임워크에서 해당 위젯을 어떻게 정렬해야 할지 모르기 때문에 발생한 문제이다.
+                  /// 정렬을 하면 문제가 해결된다!
                   return Align(
                     alignment: Alignment.bottomCenter,
                     child: Container(
