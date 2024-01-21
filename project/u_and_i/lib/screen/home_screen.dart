@@ -9,6 +9,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  DateTime selectedDate = DateTime(
+    DateTime.now().year,
+    DateTime.now().month,
+    DateTime.now().day,
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +25,10 @@ class _HomeScreenState extends State<HomeScreen> {
           width: MediaQuery.of(context).size.width,
           child: Column(
             children: [
-              _TopPart(),
+              _TopPart(
+                selectedDate: selectedDate,
+                onPressed: onHeartPressed,
+              ),
               _BottomPart(),
             ],
           ),
@@ -27,21 +36,50 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+  void onHeartPressed() {
+    final DateTime now = DateTime.now();
+
+    // dialog
+    showCupertinoDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        /// 특정 사이즈를 설정했지만 위젯이 전체 영역을 차지하는 문제가 발생했다면
+        /// 이는 플러터 프레임워크에서 해당 위젯을 어떻게 정렬해야 할지 모르기 때문에 발생한 문제이다.
+        /// 정렬을 하면 문제가 해결된다!
+        return Align(
+          alignment: Alignment.bottomCenter,
+          child: Container(
+            color: Colors.white,
+            height: 300.0,
+            child: CupertinoDatePicker(
+              mode: CupertinoDatePickerMode.date,
+              initialDateTime: selectedDate,
+              maximumDate: DateTime(
+                now.year,
+                now.month,
+                now.day,
+              ),
+              onDateTimeChanged: (DateTime date) {
+                setState(() {
+                  selectedDate = date;
+                });
+              },
+            ),
+          ),
+        );
+      },
+    );
+  }
 }
 
-class _TopPart extends StatefulWidget {
-  const _TopPart({super.key});
+class _TopPart extends StatelessWidget {
+  final DateTime selectedDate;
+  final VoidCallback onPressed;
 
-  @override
-  State<_TopPart> createState() => _TopPartState();
-}
-
-class _TopPartState extends State<_TopPart> {
-  DateTime selectedDate = DateTime(
-    DateTime.now().year,
-    DateTime.now().month,
-    DateTime.now().day,
-  );
+  _TopPart({required this.selectedDate, required this.onPressed, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -81,39 +119,7 @@ class _TopPartState extends State<_TopPart> {
           ),
           IconButton(
             iconSize: 60.0,
-            onPressed: () {
-              // dialog
-              showCupertinoDialog(
-                context: context,
-                barrierDismissible: true,
-                builder: (BuildContext context) {
-                  /// 특정 사이즈를 설정했지만 위젯이 전체 영역을 차지하는 문제가 발생했다면
-                  /// 이는 플러터 프레임워크에서 해당 위젯을 어떻게 정렬해야 할지 모르기 때문에 발생한 문제이다.
-                  /// 정렬을 하면 문제가 해결된다!
-                  return Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      color: Colors.white,
-                      height: 300.0,
-                      child: CupertinoDatePicker(
-                        mode: CupertinoDatePickerMode.date,
-                        initialDateTime: selectedDate,
-                        maximumDate: DateTime(
-                          now.year,
-                          now.month,
-                          now.day,
-                        ),
-                        onDateTimeChanged: (DateTime date) {
-                          setState(() {
-                            selectedDate = date;
-                          });
-                        },
-                      ),
-                    ),
-                  );
-                },
-              );
-            },
+            onPressed: onPressed,
             icon: Icon(
               Icons.favorite,
               color: Colors.red,
